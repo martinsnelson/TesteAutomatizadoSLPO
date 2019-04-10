@@ -1,27 +1,23 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using System;
+using TesteAutomatizadoSLPO.Controllers;
 
 namespace TesteAutomatizadoSLPO
 {
     class Program
     {
-        static ChromeDriver driver;
+
         static void Main(string[] args)
         {
-            driver = new ChromeDriver();
+            Startup.Engage(args);
+        }
 
-            driver.Navigate().GoToUrl("https://www.facebook.com/");
-
-            IWebElement campoLogin = driver.FindElement(By.Name("email"));
-            IWebElement campoSenha = driver.FindElement(By.Name("pass"));
-
-            campoLogin.SendKeys("nelsontecti@gmail.com");
-            campoSenha.SendKeys("Bankai09");
-
-            campoLogin.Submit();
-
-            driver.Close();
-            driver.Dispose();
+        static class Startup
+        {
+            static public void Engage(string[] args)
+            {
+                //Console.WriteLine("BICP - BOT - VERSÃO: " + System.Configuration.ConfigurationManager.AppSettings["VersaoSistema"].ToString());
+                new BicpBotController(args);
+            }
         }
     }
 }
