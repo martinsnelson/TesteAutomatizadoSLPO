@@ -33,6 +33,40 @@ namespace TesteAutomatizadoSLPO.Controllers
         //}
         public BicpBotController(string[] args)
         {
+            /*
+            string nomeUnico = "D:\\sample.png"; // nome do arqquivo salvo na maquina
+            string arquivoNome = "D:\\sample.png";
+
+            var driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://10.64.0.152:8080/bicp/login.do?forward=loginPage");
+
+            IWebElement element = driver.FindElement(By.Id("rdImg"));
+
+            Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            screenshot.SaveAsFile(arquivoNome, ScreenshotImageFormat.Png);
+
+
+            Image img = Bitmap.FromFile(nomeUnico);
+            Rectangle rect = new Rectangle();
+
+            if (element != null)
+            {
+                int width = element.Size.Width;
+                int height = element.Size.Height;
+
+                Point p = element.Location;
+
+                rect = new Rectangle(p.X, p.Y, width, height);
+            }
+
+            Bitmap bmpImage = new Bitmap(img);
+            var cropedImag = bmpImage.Clone(rect, bmpImage.PixelFormat);
+            cropedImag.Save("D:\\nelsonteste.png");
+
+
+            Console.ReadKey();    
+             */
+
             driver = new ChromeDriver();
             //driverF = new FirefoxDriver();
             driver.Navigate().GoToUrl("http://10.64.0.152:8080/bicp/login.do?forward=loginPage");
