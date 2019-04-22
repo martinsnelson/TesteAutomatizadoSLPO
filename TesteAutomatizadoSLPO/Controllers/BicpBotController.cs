@@ -1,13 +1,14 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using System;
+using OpenQA.Selenium.Support.Events;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Security.Policy;
-using System.Threading;
+using System;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing.Imaging;
 
 namespace TesteAutomatizadoSLPO.Controllers
 {
@@ -18,6 +19,9 @@ namespace TesteAutomatizadoSLPO.Controllers
         private Verse WORK_LOG = new Verse();
         static ChromeDriver driver;
         static FirefoxDriver driverF;
+
+        public string screenshotsPasta = @"C:\Users\nmartin\Desktop\Selenium\";
+        int contador;
 
         static string captcha_plain;
         //private Boolean Captcha()
@@ -33,12 +37,82 @@ namespace TesteAutomatizadoSLPO.Controllers
             //driverF = new FirefoxDriver();
             driver.Navigate().GoToUrl("http://10.64.0.152:8080/bicp/login.do?forward=loginPage");
             //driver.Navigate().GoToUrl("http://only-testing-blog.blogspot.com/2014/09/selectable.html");
+            driver.Manage().Window.Maximize();
+
+            Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            screenshot.SaveAsFile("C:\\Users\\nmartin\\Desktop\\Selenium\\Exemplo.png", 0);
 
             //Thread.Sleep(10000);
-
+            /// Teste
             //IWebElement logo = driver.FindElement(By.ClassName(" forum-logo"));
             IWebElement logo = driver.FindElement(By.Id("rdImg"));
-            
+
+            //int width = logo.Size.Width;
+            //int height = logo.Size.Height;
+
+
+            /*
+              public Image CaptureElementScreenShot(HTMLElement element, string uniqueName)
+              {
+              */
+                  //Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                  //screenshot.SaveAsFile(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                  //Image img = Bitmap.FromFile(uniqueName);
+                  Rectangle rect = new Rectangle();
+
+                  if (logo != null)
+                  {
+                      // Obtenha a largura e a altura do WebElement usando
+                      int width = logo.Size.Width;
+                      int height = logo.Size.Height;
+
+                      // Obtenha o local do WebElement em um ponto.
+                      // Isso fornecerá coordenadas X & Y do WebElement
+                      Point p = logo.Location;
+
+                      // Crie um retângulo usando a largura, altura e localização do elemento
+                      rect = new Rectangle(p.X, p.Y, width, height);
+                  }
+
+                  // Cortar a imagem com base no rect. //rectangle
+                  Bitmap bmpImage = new Bitmap(@"C:\Users\nmartin\Desktop\Selenium\Exemplo.png");
+                  //Bitmap img = new Bitmap(@"C:\Temp\Nelson\RobsmacImg.png");
+                    var cropedImag = bmpImage.Clone(rect, bmpImage.PixelFormat);
+            cropedImag.Save(@"C:\Temp\Nelson\RobsmacImg.png");
+                    //cropedImag
+                    var t = 1;
+            /*
+                  return cropedImag; //Imagem recortada
+              }
+              */
+
+            /*
+            //Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            //screenshot.SaveAsFile(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            //Image img = Bitmap.FromFile(uniqueName);
+            //Rectangle rect = new Rectangle();
+
+            //if (element != null)
+            //{
+            //    // Obtenha a largura e a altura do WebElement usando
+            //    int width = element.Size.Width;
+            //    int height = element.Size.Height;
+
+            //    // Obtenha o local do WebElement em um ponto.     
+            //    // Isso fornecerá coordenadas X & Y do WebElement
+            //    Point p = element.Location;
+
+            //    // Crie um retângulo usando a largura, altura e localização do elemento
+            //    rect = new Rectangle(p.X, p.Y, width, height);
+            //}
+
+            //Bitmap bmpImage = new Bitmap(img);
+            //var cropedImag = bmpImage.Clone(rect, bmpImage.PixelFormat);
+            /// Teste
+            */
+
             String logoSRC = logo.GetAttribute("src");
 
             WebClient wc = new WebClient();
@@ -178,7 +252,7 @@ namespace TesteAutomatizadoSLPO.Controllers
             Verse CapMap = new Verse();
             int threshold = 450;
 
-            //Bitmap img = new Bitmap(this.WORK_PATH + "\\captcha.png");
+            //Bitmap img = new Bitmap(this.WORK_PATH + "\\captcha.png");cropedImag
             Bitmap img = new Bitmap(@"C:\Temp\Nelson\RobsmacImg.png");
             for (int x = 0; x < img.Height; x++)
                 for (int y = 0; y < img.Width; y++)
