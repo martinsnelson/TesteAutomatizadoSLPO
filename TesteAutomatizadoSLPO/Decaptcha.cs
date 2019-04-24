@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace TesteAutomatizadoSLPO
 {
-    class Verse
+    class Decaptcha
     {
         // Atributos
         private Dictionary<dynamic, dynamic> Node = new Dictionary<dynamic, dynamic>();
 
         // Public
-        public Verse()
+        public Decaptcha()
         {
 
         }
 
-        public Verse(params dynamic[] i)
+        public Decaptcha(params dynamic[] i)
         {
             foreach (dynamic value in i)
             {
@@ -26,7 +26,7 @@ namespace TesteAutomatizadoSLPO
             }
         }
 
-        public Verse(params KeyValuePair<dynamic, dynamic>[] i)
+        public Decaptcha(params KeyValuePair<dynamic, dynamic>[] i)
         {
             foreach (dynamic pair in i)
                 this.Node[pair.Key] = pair.Value;
@@ -55,10 +55,10 @@ namespace TesteAutomatizadoSLPO
                     index = this.FreeIndex();
 
                 if (this.Node.ContainsKey(index) == false)
-                    this.Node[index] = new Verse();
+                    this.Node[index] = new Decaptcha();
 
-                if (this.Node[index] is Verse == false)
-                    this.Node[index] = new Verse();
+                if (this.Node[index] is Decaptcha == false)
+                    this.Node[index] = new Decaptcha();
 
                 dynamic[] subpath = new dynamic[i.Length - 1]; // removendo primeiro item do array
                 Array.Copy(i, 1, subpath, 0, i.Length - 1);
@@ -74,7 +74,7 @@ namespace TesteAutomatizadoSLPO
 
             else if (i.Length == 1) // Nodo é valor final
             {
-                if (this.Node[i[0]] is Verse)
+                if (this.Node[i[0]] is Decaptcha)
                     return this.Node[i[0]].Get();
                 else return this.Node[i[0]];
             }
@@ -84,7 +84,7 @@ namespace TesteAutomatizadoSLPO
                 if (this.Node.ContainsKey(i[0]) == false)
                     this.Exception("Verse.Get, unknow index " + i[0] + ".");
 
-                if (this.Node[i[0]] is Verse)
+                if (this.Node[i[0]] is Decaptcha)
                 {
                     dynamic[] subpath = new dynamic[i.Length - 1]; // removendo primeiro item do array
                     Array.Copy(i, 1, subpath, 0, i.Length - 1);
@@ -116,8 +116,8 @@ namespace TesteAutomatizadoSLPO
                 if (this.Node.ContainsKey(i[0]) == false)
                     this.Exception("Verse.UnSet, unknow index " + i[0] + ".");
 
-                if (this.Node[i[0]] is Verse == false)
-                    this.Exception("Verse.UnSet, index " + i[0] + " not an Verse.");
+                if (this.Node[i[0]] is Decaptcha == false)
+                    this.Exception("Verse.UnSet, index " + i[0] + " not an Decaptcha.");
 
                 dynamic[] subpath = new dynamic[i.Length - 1]; // removendo primeiro item do array
                 Array.Copy(i, 1, subpath, 0, i.Length - 1);
@@ -133,10 +133,10 @@ namespace TesteAutomatizadoSLPO
             else
             {
                 if (this.Node.ContainsKey(i[0]) == false)
-                    this.Node[i[0]] = new Verse();
+                    this.Node[i[0]] = new Decaptcha();
 
-                if (this.Node[i[0]] is Verse == false)
-                    this.Exception("Verse.GetFreeIndex, index " + i[0] + " not an Verse.");
+                if (this.Node[i[0]] is Decaptcha == false)
+                    this.Exception("Verse.GetFreeIndex, index " + i[0] + " not an Decaptcha.");
 
                 dynamic[] subpath = new dynamic[i.Length - 1]; // removendo primeiro item do array
                 Array.Copy(i, 1, subpath, 0, i.Length - 1);
@@ -157,7 +157,7 @@ namespace TesteAutomatizadoSLPO
             ret += tab0 + "{ \n";
 
             foreach (dynamic pair in this.Node)
-                if (this.Node[pair.Key] is Verse)
+                if (this.Node[pair.Key] is Decaptcha)
                     ret += tab1 + pair.Key + " => " + this.Node[pair.Key].print_r(tabForce) + "\n";
                 else ret += tab1 + pair.Key + " => " + pair.Value + "\n";
 
@@ -183,7 +183,7 @@ namespace TesteAutomatizadoSLPO
                 if (this.Node.ContainsKey(i[0]) == false)
                     return false;
 
-                if (this.Node[i[0]] is Verse)
+                if (this.Node[i[0]] is Decaptcha)
                 {
                     dynamic[] subpath = new dynamic[i.Length - 1]; // removendo primeiro item do array
                     Array.Copy(i, 1, subpath, 0, i.Length - 1);
